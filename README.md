@@ -1,6 +1,3 @@
-# portfoliotracker
-Tracking portfolio
-[portfolio_tracker_html.html](https://github.com/user-attachments/files/23019253/portfolio_tracker_html.html)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +14,59 @@ Tracking portfolio
 
     <script type="text/babel">
         const { useState, useEffect } = React;
+
+        // Daily tasks for the 6-month plan
+        const dailyTasks = {
+            // Week 1: Oct 21-27
+            "2025-10-21": { task: "Open a Google Doc titled 'My Work Inventory' and list every project from the past 3 years (just titles)", timeEstimate: "20 min", week: "Week 1: The Brain Dump" },
+            "2025-10-22": { task: "Pick your TOP 3 projects from yesterday's list and write one sentence about each: 'I did X which resulted in Y'", timeEstimate: "15 min", week: "Week 1: The Brain Dump" },
+            "2025-10-23": { task: "Search your email for positive feedback. Copy-paste 5 good emails into a 'Testimonials' doc", timeEstimate: "20 min", week: "Week 1: The Brain Dump" },
+            "2025-10-24": { task: "List everyone who reports/reported to you. Write down team size and budget managed", timeEstimate: "15 min", week: "Week 1: The Brain Dump" },
+            "2025-10-25": { task: "Find 3 presentations you gave to executives/board. Save them to personal Google Drive", timeEstimate: "20 min", week: "Week 1: The Brain Dump" },
+            
+            // Week 2: Oct 28-Nov 3
+            "2025-10-28": { task: "For each of your TOP 3 projects, find ONE metric (revenue increase, user growth, cost savings, etc.)", timeEstimate: "20 min", week: "Week 2: Numbers & Impact" },
+            "2025-10-29": { task: "Message 2 stakeholders: 'Hey, doing some reflection—what impact did [project] have?'", timeEstimate: "15 min", week: "Week 2: Numbers & Impact" },
+            "2025-10-30": { task: "Open your last 3 performance reviews and highlight any quantifiable achievements", timeEstimate: "20 min", week: "Week 2: Numbers & Impact" },
+            "2025-10-31": { task: "Search your calendar for the past year. Find 3-5 executive meetings where you presented", timeEstimate: "15 min", week: "Week 2: Numbers & Impact" },
+            "2025-11-01": { task: "Write down your current team structure. Note team growth: 'Grew design team from X to Y people'", timeEstimate: "20 min", week: "Week 2: Numbers & Impact" },
+            
+            // Week 3: Nov 4-10
+            "2025-11-04": { task: "Find 1 strategy document you created (roadmap, vision doc, framework, process)", timeEstimate: "20 min", week: "Week 3: Strategic Evidence" },
+            "2025-11-05": { task: "List 3 major decisions you influenced at exec level. Format: 'I recommended X, which led to Y'", timeEstimate: "15 min", week: "Week 3: Strategic Evidence" },
+            "2025-11-06": { task: "Update LinkedIn: Add your current role description and 2-3 recent accomplishments", timeEstimate: "20 min", week: "Week 3: Strategic Evidence" },
+            "2025-11-07": { task: "Find any articles, conference talks, or thought leadership you did. Save links/files", timeEstimate: "15 min", week: "Week 3: Strategic Evidence" },
+            "2025-11-08": { task: "Review your Work Inventory and pick 4-6 'hero projects' that show strategy, leadership, and impact", timeEstimate: "20 min", week: "Week 3: Strategic Evidence" },
+            
+            // Week 4: Nov 11-17
+            "2025-11-11": { task: "Make a list: Which C-suite people know your work best? Pick your top 3", timeEstimate: "15 min", week: "Week 4: Executive Testimonials" },
+            "2025-11-12": { task: "Message the FIRST C-suite person asking for a LinkedIn recommendation", timeEstimate: "20 min", week: "Week 4: Executive Testimonials" },
+            "2025-11-13": { task: "Message the SECOND C-suite person asking for a LinkedIn recommendation", timeEstimate: "15 min", week: "Week 4: Executive Testimonials" },
+            "2025-11-14": { task: "Message the THIRD C-suite person asking for a LinkedIn recommendation", timeEstimate: "15 min", week: "Week 4: Executive Testimonials" },
+            "2025-11-15": { task: "Review everything you've captured this month. Celebrate your progress!", timeEstimate: "20 min", week: "Week 4: Executive Testimonials" },
+            
+            // Week 5: Nov 18-24
+            "2025-11-18": { task: "Open a new doc: 'My Executive Story'. Write 3 paragraphs about your leadership philosophy", timeEstimate: "25 min", week: "Week 5: Start Your Narrative" },
+            "2025-11-19": { task: "Pick ONE hero project. Write the 'before' state: What was broken/missing? (2-3 sentences)", timeEstimate: "20 min", week: "Week 5: Start Your Narrative" },
+            "2025-11-20": { task: "Same project: Write the 'after' state. What changed? What was the impact?", timeEstimate: "20 min", week: "Week 5: Start Your Narrative" },
+            "2025-11-21": { task: "Same project: Write YOUR role using leadership language: 'I led... I decided... I built...'", timeEstimate: "15 min", week: "Week 5: Start Your Narrative" },
+            "2025-11-22": { task: "Read what you wrote this week. You just drafted your first case study!", timeEstimate: "20 min", week: "Week 5: Start Your Narrative" },
+            
+            // Week 6: Nov 25-Dec 1
+            "2025-11-25": { task: "Make a list of 20 executive-level contacts (former colleagues, mentors, industry peers)", timeEstimate: "20 min", week: "Week 6: Network Activation" },
+            "2025-11-26": { task: "Message 3 people from your list: 'Hey! Been thinking about you. Coffee/call soon?'", timeEstimate: "15 min", week: "Week 6: Network Activation" },
+            "2025-11-27": { task: "Message 3 MORE people with personal touches for each", timeEstimate: "15 min", week: "Week 6: Network Activation" },
+            "2025-11-28": { task: "THANKSGIVING - Take the day off! Rest and recharge.", timeEstimate: "0 min", week: "Week 6: Network Activation" },
+            "2025-11-29": { task: "Message 3 MORE people. You've now reached out to 9 executives!", timeEstimate: "15 min", week: "Week 6: Network Activation" },
+            
+            // Default tasks for other days
+            "default": { task: "Continue with your current month's focus. Check the weekly plan in your notes.", timeEstimate: "20 min", week: "Daily Progress" }
+        };
+
+        const getDailyTask = () => {
+            const today = new Date().toISOString().split('T')[0];
+            return dailyTasks[today] || dailyTasks["default"];
+        };
 
         // Lucide React icons as inline SVG components
         const Calendar = ({ size = 24, className = "" }) => (
@@ -59,6 +109,14 @@ Tracking portfolio
             </svg>
         );
 
+        const Target = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+        );
+
         const PortfolioTracker = () => {
             const [entries, setEntries] = useState([]);
             const [currentEntry, setCurrentEntry] = useState({
@@ -73,6 +131,7 @@ Tracking portfolio
             const [testimonials, setTestimonials] = useState([]);
             const [metrics, setMetrics] = useState([]);
             const [activeTab, setActiveTab] = useState('daily');
+            const [todayTask, setTodayTask] = useState(getDailyTask());
 
             // Load data from localStorage on mount
             useEffect(() => {
@@ -106,6 +165,18 @@ Tracking portfolio
                 }
             }, [entries, projects, testimonials, metrics]);
 
+            // Update task when date changes
+            useEffect(() => {
+                setTodayTask(getDailyTask());
+            }, [currentEntry.date]);
+
+            const useTodayTask = () => {
+                setCurrentEntry({
+                    ...currentEntry,
+                    task: todayTask.task
+                });
+            };
+
             const addDailyEntry = () => {
                 if (!currentEntry.task) return;
                 
@@ -124,6 +195,7 @@ Tracking portfolio
                     timeSpent: '',
                     category: 'capture'
                 });
+                setTodayTask(getDailyTask());
             };
 
             const addProject = () => {
@@ -325,6 +397,32 @@ Tracking portfolio
                         {/* Daily Entry Tab */}
                         {activeTab === 'daily' && (
                             <div className="space-y-6">
+                                {/* Today's Recommended Task */}
+                                <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg shadow-lg p-6 border-2 border-orange-200">
+                                    <h2 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+                                        <Target size={24} className="text-orange-600" />
+                                        📅 Your Task for Today
+                                    </h2>
+                                    <div className="bg-white rounded-lg p-4 mb-3">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <div>
+                                                <p className="text-sm text-gray-600 mb-1">{todayTask.week}</p>
+                                                <p className="text-lg font-medium text-gray-900">{todayTask.task}</p>
+                                            </div>
+                                            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
+                                                ⏱️ {todayTask.timeEstimate}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={useTodayTask}
+                                        className="w-full bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition font-medium flex items-center justify-center gap-2"
+                                    >
+                                        <CheckCircle size={20} />
+                                        Use This Task for Today
+                                    </button>
+                                </div>
+
                                 {/* Entry Form */}
                                 <div className="bg-white rounded-lg shadow-lg p-6">
                                     <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -338,7 +436,10 @@ Tracking portfolio
                                             <input
                                                 type="date"
                                                 value={currentEntry.date}
-                                                onChange={(e) => setCurrentEntry({...currentEntry, date: e.target.value})}
+                                                onChange={(e) => {
+                                                    setCurrentEntry({...currentEntry, date: e.target.value});
+                                                    setTodayTask(getDailyTask());
+                                                }}
                                                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                             />
                                         </div>
