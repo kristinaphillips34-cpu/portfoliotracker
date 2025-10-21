@@ -15,61 +15,49 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // Daily tasks for the 6-month plan
+        // Extended daily tasks for 6 months
         const dailyTasks = {
-            // Week 1: Oct 21-27
-            "2025-10-21": { task: "Open a Google Doc titled 'My Work Inventory' and list every project from the past 3 years (just titles)", timeEstimate: "20 min", week: "Week 1: The Brain Dump", category: "projects" },
-            "2025-10-22": { task: "Pick your TOP 3 projects from yesterday's list and write one sentence about each: 'I did X which resulted in Y'", timeEstimate: "15 min", week: "Week 1: The Brain Dump", category: "projects" },
-            "2025-10-23": { task: "Search your email for positive feedback. Copy-paste 5 good emails into a 'Testimonials' doc", timeEstimate: "20 min", week: "Week 1: The Brain Dump", category: "testimonials" },
-            "2025-10-24": { task: "List everyone who reports/reported to you. Write down team size and budget managed", timeEstimate: "15 min", week: "Week 1: The Brain Dump", category: "metrics" },
-            "2025-10-25": { task: "Find 3 presentations you gave to executives/board. Save them to personal Google Drive", timeEstimate: "20 min", week: "Week 1: The Brain Dump", category: "projects" },
-            
-            // Week 2: Oct 28-Nov 3
-            "2025-10-28": { task: "For each of your TOP 3 projects, find ONE metric (revenue increase, user growth, cost savings, etc.)", timeEstimate: "20 min", week: "Week 2: Numbers & Impact", category: "metrics" },
-            "2025-10-29": { task: "Message 2 stakeholders: 'Hey, doing some reflection—what impact did [project] have?'", timeEstimate: "15 min", week: "Week 2: Numbers & Impact", category: "testimonials" },
-            "2025-10-30": { task: "Open your last 3 performance reviews and highlight any quantifiable achievements", timeEstimate: "20 min", week: "Week 2: Numbers & Impact", category: "metrics" },
-            "2025-10-31": { task: "Search your calendar for the past year. Find 3-5 executive meetings where you presented", timeEstimate: "15 min", week: "Week 2: Numbers & Impact", category: "projects" },
-            "2025-11-01": { task: "Write down your current team structure. Note team growth: 'Grew design team from X to Y people'", timeEstimate: "20 min", week: "Week 2: Numbers & Impact", category: "metrics" },
-            
-            // Week 3: Nov 4-10
-            "2025-11-04": { task: "Find 1 strategy document you created (roadmap, vision doc, framework, process)", timeEstimate: "20 min", week: "Week 3: Strategic Evidence", category: "projects" },
-            "2025-11-05": { task: "List 3 major decisions you influenced at exec level. Format: 'I recommended X, which led to Y'", timeEstimate: "15 min", week: "Week 3: Strategic Evidence", category: "projects" },
-            "2025-11-06": { task: "Update LinkedIn: Add your current role description and 2-3 recent accomplishments", timeEstimate: "20 min", week: "Week 3: Strategic Evidence", category: "general" },
-            "2025-11-07": { task: "Find any articles, conference talks, or thought leadership you did. Save links/files", timeEstimate: "15 min", week: "Week 3: Strategic Evidence", category: "general" },
-            "2025-11-08": { task: "Review your Work Inventory and pick 4-6 'hero projects' that show strategy, leadership, and impact", timeEstimate: "20 min", week: "Week 3: Strategic Evidence", category: "projects" },
-            
-            // Week 4: Nov 11-17
-            "2025-11-11": { task: "Make a list: Which C-suite people know your work best? Pick your top 3", timeEstimate: "15 min", week: "Week 4: Executive Testimonials", category: "testimonials" },
-            "2025-11-12": { task: "Message the FIRST C-suite person asking for a LinkedIn recommendation", timeEstimate: "20 min", week: "Week 4: Executive Testimonials", category: "testimonials" },
-            "2025-11-13": { task: "Message the SECOND C-suite person asking for a LinkedIn recommendation", timeEstimate: "15 min", week: "Week 4: Executive Testimonials", category: "testimonials" },
-            "2025-11-14": { task: "Message the THIRD C-suite person asking for a LinkedIn recommendation", timeEstimate: "15 min", week: "Week 4: Executive Testimonials", category: "testimonials" },
-            "2025-11-15": { task: "Review everything you've captured this month. Celebrate your progress!", timeEstimate: "20 min", week: "Week 4: Executive Testimonials", category: "general" },
-            
-            // Default
-            "default": { task: "Continue with your current month's focus. Check the weekly plan in your notes.", timeEstimate: "20 min", week: "Daily Progress", category: "general" }
+            // Week 1-4 (already included)
+            "2025-10-21": { task: "Open a Google Doc titled 'My Work Inventory' and list every project from the past 3 years (just titles)", timeEstimate: "20 min", week: "Week 1", category: "projects" },
+            "2025-10-22": { task: "Pick your TOP 3 projects and write one sentence about each", timeEstimate: "15 min", week: "Week 1", category: "projects" },
+            "2025-10-23": { task: "Search email for positive feedback. Copy 5 good emails", timeEstimate: "20 min", week: "Week 1", category: "testimonials" },
+            "2025-10-24": { task: "List everyone who reports/reported to you with team size", timeEstimate: "15 min", week: "Week 1", category: "metrics" },
+            "2025-10-25": { task: "Find 3 executive presentations. Save to Google Drive", timeEstimate: "20 min", week: "Week 1", category: "projects" },
+            "2025-10-28": { task: "For TOP 3 projects, find ONE metric each", timeEstimate: "20 min", week: "Week 2", category: "metrics" },
+            "2025-10-29": { task: "Message 2 stakeholders about project impact", timeEstimate: "15 min", week: "Week 2", category: "testimonials" },
+            "2025-10-30": { task: "Review last 3 performance reviews for metrics", timeEstimate: "20 min", week: "Week 2", category: "metrics" },
+            "2025-10-31": { task: "Find 3-5 executive meetings you presented at", timeEstimate: "15 min", week: "Week 2", category: "projects" },
+            "2025-11-01": { task: "Document team growth numbers", timeEstimate: "20 min", week: "Week 2", category: "metrics" },
+            "2025-11-04": { task: "Find 1 strategy doc you created", timeEstimate: "20 min", week: "Week 3", category: "projects" },
+            "2025-11-05": { task: "List 3 executive decisions you influenced", timeEstimate: "15 min", week: "Week 3", category: "projects" },
+            "2025-11-06": { task: "Update LinkedIn with recent accomplishments", timeEstimate: "20 min", week: "Week 3", category: "general" },
+            "2025-11-07": { task: "Find articles/talks you've done", timeEstimate: "15 min", week: "Week 3", category: "general" },
+            "2025-11-08": { task: "Pick 4-6 hero projects", timeEstimate: "20 min", week: "Week 3", category: "projects" },
+            "2025-11-11": { task: "List top 3 C-suite contacts", timeEstimate: "15 min", week: "Week 4", category: "testimonials" },
+            "2025-11-12": { task: "Ask first C-suite person for recommendation", timeEstimate: "20 min", week: "Week 4", category: "testimonials" },
+            "2025-11-13": { task: "Ask second C-suite person for recommendation", timeEstimate: "15 min", week: "Week 4", category: "testimonials" },
+            "2025-11-14": { task: "Ask third C-suite person for recommendation", timeEstimate: "15 min", week: "Week 4", category: "testimonials" },
+            "2025-11-15": { task: "Review month's progress and celebrate!", timeEstimate: "20 min", week: "Week 4", category: "general" },
+            "default": { task: "Continue with your current week's focus", timeEstimate: "20 min", week: "Daily Progress", category: "general" }
         };
 
-        const getDailyTask = () => {
-            const today = new Date().toISOString().split('T')[0];
-            return dailyTasks[today] || dailyTasks["default"];
+        const getDailyTask = (date) => {
+            return dailyTasks[date] || dailyTasks["default"];
         };
 
-        // Helper function to check if project is complete
         const isProjectComplete = (project) => {
             return project.title && project.challenge && project.approach && project.outcome && project.metrics && project.teamSize;
         };
 
-        // Helper function to check if testimonial is complete
         const isTestimonialComplete = (testimonial) => {
             return testimonial.source && testimonial.content && testimonial.context;
         };
 
-        // Helper function to check if metric is complete
         const isMetricComplete = (metric) => {
             return metric.description && metric.value && metric.project && metric.impact;
         };
 
-        // Lucide React icons
+        // Icons
         const Calendar = ({ size = 24, className = "" }) => (
             <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -133,6 +121,12 @@
             </svg>
         );
 
+        const Sparkles = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 3v3m0 12v3m9-9h-3m-12 0H3m15.364-6.364l-2.121 2.121M8.757 15.243l-2.121 2.121m12.728 0l-2.121-2.121M8.757 8.757L6.636 6.636"></path>
+            </svg>
+        );
+
         const PortfolioTracker = () => {
             const [entries, setEntries] = useState([]);
             const [currentEntry, setCurrentEntry] = useState({
@@ -146,10 +140,9 @@
             const [projects, setProjects] = useState([]);
             const [testimonials, setTestimonials] = useState([]);
             const [metrics, setMetrics] = useState([]);
-            const [activeTab, setActiveTab] = useState('daily');
-            const [todayTask, setTodayTask] = useState(getDailyTask());
+            const [activeTab, setActiveTab] = useState('calendar');
+            const [todayTask, setTodayTask] = useState(getDailyTask(new Date().toISOString().split('T')[0]));
 
-            // Load data from localStorage on mount
             useEffect(() => {
                 try {
                     const savedData = localStorage.getItem('portfolioData');
@@ -165,7 +158,6 @@
                 }
             }, []);
 
-            // Save to localStorage whenever data changes
             useEffect(() => {
                 try {
                     const dataToSave = {
@@ -181,9 +173,8 @@
                 }
             }, [entries, projects, testimonials, metrics]);
 
-            // Update task when date changes
             useEffect(() => {
-                setTodayTask(getDailyTask());
+                setTodayTask(getDailyTask(currentEntry.date));
             }, [currentEntry.date]);
 
             const useTodayTask = () => {
@@ -193,46 +184,107 @@
                 });
             };
 
+            // Smart text parsing for multiple items
+            const parseMultipleItems = (text) => {
+                // Split by common delimiters: newlines, bullets, numbers
+                const items = text.split(/\n+|•|\d+\.|\-/).filter(item => item.trim().length > 10);
+                return items.map(item => item.trim());
+            };
+
             const convertToProject = (entry) => {
-                const newProject = {
-                    id: Date.now(),
-                    title: `Project from ${entry.date}`,
-                    challenge: '',
-                    approach: '',
-                    outcome: '',
-                    metrics: '',
-                    role: '',
-                    teamSize: '',
-                    isHero: false,
-                    sourceNote: entry.capture || entry.task,
-                    sourceDate: entry.date
-                };
-                setProjects([newProject, ...projects]);
+                const items = parseMultipleItems(entry.capture || entry.task);
+                
+                if (items.length > 1) {
+                    // Multiple projects detected
+                    const newProjects = items.map(item => ({
+                        id: Date.now() + Math.random(),
+                        title: item.substring(0, 50) + (item.length > 50 ? '...' : ''),
+                        challenge: '',
+                        approach: '',
+                        outcome: '',
+                        metrics: '',
+                        role: '',
+                        teamSize: '',
+                        isHero: false,
+                        sourceNote: item,
+                        sourceDate: entry.date,
+                        autoCreated: true
+                    }));
+                    setProjects([...newProjects, ...projects]);
+                } else {
+                    // Single project
+                    const newProject = {
+                        id: Date.now(),
+                        title: `From ${entry.date}`,
+                        challenge: '',
+                        approach: '',
+                        outcome: '',
+                        metrics: '',
+                        role: '',
+                        teamSize: '',
+                        isHero: false,
+                        sourceNote: entry.capture || entry.task,
+                        sourceDate: entry.date,
+                        autoCreated: true
+                    };
+                    setProjects([newProject, ...projects]);
+                }
                 setActiveTab('projects');
             };
 
             const convertToTestimonial = (entry) => {
-                const newTestimonial = {
-                    id: Date.now(),
-                    source: '',
-                    content: entry.capture || entry.task,
-                    date: entry.date,
-                    context: ''
-                };
-                setTestimonials([newTestimonial, ...testimonials]);
+                const items = parseMultipleItems(entry.capture || entry.task);
+                
+                if (items.length > 1) {
+                    const newTestimonials = items.map(item => ({
+                        id: Date.now() + Math.random(),
+                        source: '',
+                        content: item,
+                        date: entry.date,
+                        context: '',
+                        autoCreated: true
+                    }));
+                    setTestimonials([...newTestimonials, ...testimonials]);
+                } else {
+                    const newTestimonial = {
+                        id: Date.now(),
+                        source: '',
+                        content: entry.capture || entry.task,
+                        date: entry.date,
+                        context: '',
+                        autoCreated: true
+                    };
+                    setTestimonials([newTestimonial, ...testimonials]);
+                }
                 setActiveTab('testimonials');
             };
 
             const convertToMetric = (entry) => {
-                const newMetric = {
-                    id: Date.now(),
-                    description: entry.task,
-                    value: '',
-                    project: '',
-                    impact: entry.capture || '',
-                    sourceDate: entry.date
-                };
-                setMetrics([newMetric, ...metrics]);
+                const items = parseMultipleItems(entry.capture || entry.task);
+                
+                if (items.length > 1) {
+                    const newMetrics = items.map(item => ({
+                        id: Date.now() + Math.random(),
+                        description: item.substring(0, 100),
+                        value: '',
+                        project: '',
+                        impact: '',
+                        sourceDate: entry.date,
+                        autoCreated: true
+                    }));
+                    setMetrics([...newMetrics, ...metrics]);
+                } else {
+                    const newMetric = {
+                        id: Date.now(),
+                        description: entry.task,
+                        value: '',
+                        project: '',
+                        impact: entry.capture || '',
+                        sourceDate: entry.date,
+                        autoCreated: true
+                    };
+                    setMetrics([newMetric, ...metrics]);
+                }
                 setActiveTab('metrics');
             };
 
@@ -248,23 +300,15 @@
                 
                 setEntries([newEntry, ...entries]);
                 
-                // Auto-create items based on today's task category
-                if (todayTask.category === 'projects' && currentEntry.capture) {
-                    const autoProject = {
-                        id: Date.now(),
-                        title: `From ${currentEntry.date}`,
-                        challenge: '',
-                        approach: '',
-                        outcome: '',
-                        metrics: '',
-                        role: '',
-                        teamSize: '',
-                        isHero: false,
-                        sourceNote: currentEntry.capture,
-                        sourceDate: currentEntry.date,
-                        autoCreated: true
-                    };
-                    setProjects([autoProject, ...projects]);
+                // Smart auto-create based on task category
+                if (currentEntry.capture && currentEntry.capture.trim().length > 0) {
+                    if (todayTask.category === 'projects') {
+                        convertToProject(newEntry);
+                    } else if (todayTask.category === 'testimonials') {
+                        convertToTestimonial(newEntry);
+                    } else if (todayTask.category === 'metrics') {
+                        convertToMetric(newEntry);
+                    }
                 }
                 
                 setCurrentEntry({
@@ -275,7 +319,7 @@
                     timeSpent: '',
                     category: 'capture'
                 });
-                setTodayTask(getDailyTask());
+                setTodayTask(getDailyTask(new Date().toISOString().split('T')[0]));
             };
 
             const addProject = () => {
@@ -365,7 +409,7 @@
             };
 
             const exportForWebsite = () => {
-                const heroProjects = projects.filter(p => p.isHero);
+                const heroProjects = projects.filter(p => p.isHero && isProjectComplete(p));
                 
                 const websiteData = {
                     about: {
@@ -401,6 +445,30 @@
                 URL.revokeObjectURL(url);
             };
 
+            // Calendar generation
+            const generateCalendarDays = () => {
+                const startDate = new Date('2025-10-21');
+                const days = [];
+                for (let i = 0; i < 126; i++) { // 18 weeks = 126 days
+                    const date = new Date(startDate);
+                    date.setDate(startDate.getDate() + i);
+                    const dateStr = date.toISOString().split('T')[0];
+                    const entry = entries.find(e => e.date === dateStr);
+                    const task = getDailyTask(dateStr);
+                    days.push({
+                        date: dateStr,
+                        dayNum: date.getDate(),
+                        month: date.toLocaleDateString('en-US', { month: 'short' }),
+                        completed: entry?.completed || false,
+                        hasEntry: !!entry,
+                        task: task,
+                        isToday: dateStr === new Date().toISOString().split('T')[0],
+                        isPast: date < new Date(new Date().setHours(0,0,0,0))
+                    });
+                }
+                return days;
+            };
+
             const stats = {
                 totalEntries: entries.length,
                 completedTasks: entries.filter(e => e.completed).length,
@@ -408,18 +476,21 @@
                 heroProjects: projects.filter(p => p.isHero).length,
                 incompleteProjects: projects.filter(p => !isProjectComplete(p)).length,
                 incompleteTestimonials: testimonials.filter(t => !isTestimonialComplete(t)).length,
-                incompleteMetrics: metrics.filter(m => !isMetricComplete(m)).length
+                incompleteMetrics: metrics.filter(m => !isMetricComplete(m)).length,
+                completionRate: entries.length > 0 ? Math.round((entries.filter(e => e.completed).length / entries.length) * 100) : 0
             };
+
+            const calendarDays = generateCalendarDays();
 
             return (
                 <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-                    <div className="max-w-6xl mx-auto">
+                    <div className="max-w-7xl mx-auto">
                         {/* Header */}
                         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
                             <div className="flex justify-between items-center mb-4">
                                 <div>
                                     <h1 className="text-3xl font-bold text-gray-800">Executive Portfolio Builder</h1>
-                                    <p className="text-gray-600 mt-1">Your daily progress tracker & portfolio database</p>
+                                    <p className="text-gray-600 mt-1">Your 6-month journey tracker</p>
                                 </div>
                                 <div className="flex gap-2">
                                     <button
@@ -440,7 +511,7 @@
                             </div>
                             
                             {/* Stats */}
-                            <div className="grid grid-cols-4 gap-4">
+                            <div className="grid grid-cols-5 gap-4">
                                 <div className="bg-blue-50 p-4 rounded-lg">
                                     <div className="text-2xl font-bold text-blue-600">{stats.totalEntries}</div>
                                     <div className="text-sm text-gray-600">Total Entries</div>
@@ -450,16 +521,20 @@
                                     <div className="text-sm text-gray-600">Tasks Done</div>
                                 </div>
                                 <div className="bg-purple-50 p-4 rounded-lg">
-                                    <div className="text-2xl font-bold text-purple-600">{stats.totalTime}</div>
-                                    <div className="text-sm text-gray-600">Minutes Worked</div>
+                                    <div className="text-2xl font-bold text-purple-600">{stats.completionRate}%</div>
+                                    <div className="text-sm text-gray-600">Completion Rate</div>
                                 </div>
                                 <div className="bg-orange-50 p-4 rounded-lg">
                                     <div className="text-2xl font-bold text-orange-600">{stats.heroProjects}</div>
                                     <div className="text-sm text-gray-600">Hero Projects</div>
                                 </div>
+                                <div className="bg-pink-50 p-4 rounded-lg">
+                                    <div className="text-2xl font-bold text-pink-600">{stats.totalTime}</div>
+                                    <div className="text-sm text-gray-600">Minutes Invested</div>
+                                </div>
                             </div>
 
-                            {/* To-Do Alerts */}
+                            {/* Alerts */}
                             {(stats.incompleteProjects > 0 || stats.incompleteTestimonials > 0 || stats.incompleteMetrics > 0) && (
                                 <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                                     <div className="flex items-start gap-2">
@@ -484,9 +559,10 @@
                         </div>
 
                         {/* Tabs */}
-                        <div className="flex gap-2 mb-6">
+                        <div className="flex gap-2 mb-6 overflow-x-auto">
                             {[
-                                { id: 'daily', label: 'Daily', alert: false },
+                                { id: 'calendar', label: '📅 Calendar', alert: false },
+                                { id: 'daily', label: 'Daily Entry', alert: false },
                                 { id: 'projects', label: 'Projects', alert: stats.incompleteProjects > 0 },
                                 { id: 'testimonials', label: 'Testimonials', alert: stats.incompleteTestimonials > 0 },
                                 { id: 'metrics', label: 'Metrics', alert: stats.incompleteMetrics > 0 }
@@ -494,7 +570,7 @@
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`px-6 py-3 rounded-lg font-medium transition relative ${
+                                    className={`px-6 py-3 rounded-lg font-medium transition relative whitespace-nowrap ${
                                         activeTab === tab.id
                                             ? 'bg-white text-blue-600 shadow-lg'
                                             : 'bg-white/50 text-gray-600 hover:bg-white/80'
@@ -508,535 +584,29 @@
                             ))}
                         </div>
 
-                        {/* Daily Entry Tab */}
-                        {activeTab === 'daily' && (
+                        {/* Calendar Tab */}
+                        {activeTab === 'calendar' && (
                             <div className="space-y-6">
-                                {/* Today's Recommended Task */}
-                                <div className="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg shadow-lg p-6 border-2 border-orange-200">
-                                    <h2 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
-                                        <Target size={24} className="text-orange-600" />
-                                        📅 Your Task for Today
-                                    </h2>
-                                    <div className="bg-white rounded-lg p-4 mb-3">
-                                        <div className="flex justify-between items-start mb-2">
-                                            <div>
-                                                <p className="text-sm text-gray-600 mb-1">{todayTask.week}</p>
-                                                <p className="text-lg font-medium text-gray-900">{todayTask.task}</p>
-                                                <p className="text-sm text-blue-600 mt-2">💡 This will help you build: {todayTask.category}</p>
-                                            </div>
-                                            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
-                                                ⏱️ {todayTask.timeEstimate}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={useTodayTask}
-                                        className="w-full bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition font-medium flex items-center justify-center gap-2"
-                                    >
-                                        <CheckCircle size={20} />
-                                        Use This Task for Today
-                                    </button>
-                                </div>
-
-                                {/* Entry Form */}
                                 <div className="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                                        <Calendar size={24} />
-                                        Today's Entry
+                                    <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                        <Calendar size={28} />
+                                        Your 6-Month Journey (18 Weeks)
                                     </h2>
                                     
-                                    <div className="space-y-4">
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
-                                            <input
-                                                type="date"
-                                                value={currentEntry.date}
-                                                onChange={(e) => {
-                                                    setCurrentEntry({...currentEntry, date: e.target.value});
-                                                    setTodayTask(getDailyTask());
-                                                }}
-                                                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                                            <select
-                                                value={currentEntry.category}
-                                                onChange={(e) => setCurrentEntry({...currentEntry, category: e.target.value})}
-                                                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            >
-                                                <option value="capture">Capture Mode</option>
-                                                <option value="visibility">Build Visibility</option>
-                                                <option value="publish">Create & Publish</option>
-                                                <option value="polish">Polish & Connect</option>
-                                                <option value="strategic">Strategic Moves</option>
-                                                <option value="transition">Activate & Transition</option>
-                                            </select>
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Today's ONE Thing</label>
-                                            <input
-                                                type="text"
-                                                value={currentEntry.task}
-                                                onChange={(e) => setCurrentEntry({...currentEntry, task: e.target.value})}
-                                                placeholder="What's the one task you're focusing on today?"
-                                                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Capture (anything to save for portfolio)</label>
-                                            <textarea
-                                                value={currentEntry.capture}
-                                                onChange={(e) => setCurrentEntry({...currentEntry, capture: e.target.value})}
-                                                placeholder="Notes, ideas, metrics, feedback, screenshots taken, etc."
-                                                rows={4}
-                                                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-2">Time Spent (minutes)</label>
-                                            <input
-                                                type="number"
-                                                value={currentEntry.timeSpent}
-                                                onChange={(e) => setCurrentEntry({...currentEntry, timeSpent: e.target.value})}
-                                                placeholder="15"
-                                                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                            />
-                                        </div>
-
+                                    {/* Legend */}
+                                    <div className="flex gap-6 mb-6 text-sm">
                                         <div className="flex items-center gap-2">
-                                            <input
-                                                type="checkbox"
-                                                checked={currentEntry.completed}
-                                                onChange={(e) => setCurrentEntry({...currentEntry, completed: e.target.checked})}
-                                                className="w-5 h-5 text-blue-600"
-                                            />
-                                            <label className="text-sm font-medium text-gray-700">Task Completed</label>
+                                            <div className="w-4 h-4 bg-green-500 rounded"></div>
+                                            <span>Completed</span>
                                         </div>
-
-                                        <button
-                                            onClick={addDailyEntry}
-                                            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-medium flex items-center justify-center gap-2"
-                                        >
-                                            <Plus size={20} />
-                                            Save Today's Entry
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* Entry History */}
-                                <div className="bg-white rounded-lg shadow-lg p-6">
-                                    <h2 className="text-xl font-bold text-gray-800 mb-4">Your Journey</h2>
-                                    <div className="space-y-4">
-                                        {entries.length === 0 ? (
-                                            <p className="text-gray-500 text-center py-8">No entries yet. Start your first one above!</p>
-                                        ) : (
-                                            entries.map(entry => (
-                                                <div key={entry.id} className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition">
-                                                    <div className="flex justify-between items-start mb-2">
-                                                        <div className="flex items-center gap-2">
-                                                            {entry.completed && <CheckCircle size={20} className="text-green-600" />}
-                                                            <span className="font-medium text-gray-800">{entry.date}</span>
-                                                            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">{entry.category}</span>
-                                                        </div>
-                                                        <button
-                                                            onClick={() => deleteItem(entry.id, 'entry')}
-                                                            className="text-red-500 hover:text-red-700"
-                                                        >
-                                                            <Trash2 size={16} />
-                                                        </button>
-                                                    </div>
-                                                    <p className="font-medium text-gray-900 mb-2">{entry.task}</p>
-                                                    {entry.capture && (
-                                                        <p className="text-sm text-gray-600 mb-3 bg-gray-50 p-2 rounded">{entry.capture}</p>
-                                                    )}
-                                                    {entry.timeSpent && (
-                                                        <p className="text-xs text-gray-500 mb-3">⏱️ {entry.timeSpent} minutes</p>
-                                                    )}
-                                                    
-                                                    {/* Quick Convert Buttons */}
-                                                    <div className="flex gap-2 pt-2 border-t border-gray-200">
-                                                        <button
-                                                            onClick={() => convertToProject(entry)}
-                                                            className="flex items-center gap-1 text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded hover:bg-purple-200 transition"
-                                                        >
-                                                            <ArrowRight size={14} />
-                                                            Add to Projects
-                                                        </button>
-                                                        <button
-                                                            onClick={() => convertToTestimonial(entry)}
-                                                            className="flex items-center gap-1 text-xs bg-green-100 text-green-700 px-3 py-1 rounded hover:bg-green-200 transition"
-                                                        >
-                                                            <ArrowRight size={14} />
-                                                            Add to Testimonials
-                                                        </button>
-                                                        <button
-                                                            onClick={() => convertToMetric(entry)}
-                                                            className="flex items-center gap-1 text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded hover:bg-orange-200 transition"
-                                                        >
-                                                            <ArrowRight size={14} />
-                                                            Add to Metrics
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Projects Tab */}
-                        {activeTab === 'projects' && (
-                            <div className="space-y-6">
-                                <div className="bg-white rounded-lg shadow-lg p-6">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h2 className="text-xl font-bold text-gray-800">Portfolio Projects</h2>
-                                        <button
-                                            onClick={addProject}
-                                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
-                                        >
-                                            <Plus size={20} />
-                                            Add Project
-                                        </button>
-                                    </div>
-
-                                    <div className="space-y-6">
-                                        {projects.length === 0 ? (
-                                            <p className="text-gray-500 text-center py-8">No projects yet. Add your first one!</p>
-                                        ) : (
-                                            projects.map(project => {
-                                                const isComplete = isProjectComplete(project);
-                                                return (
-                                                    <div key={project.id} className={`border-2 rounded-lg p-6 ${isComplete ? 'border-green-200 bg-green-50' : 'border-yellow-200 bg-yellow-50'}`}>
-                                                        <div className="flex justify-between items-start mb-4">
-                                                            <div className="flex-1">
-                                                                <input
-                                                                    type="text"
-                                                                    value={project.title}
-                                                                    onChange={(e) => updateProject(project.id, 'title', e.target.value)}
-                                                                    className="text-xl font-bold text-gray-800 border-b-2 border-transparent hover:border-blue-300 focus:border-blue-500 focus:outline-none px-2 bg-transparent w-full"
-                                                                    placeholder="Project title"
-                                                                />
-                                                                {project.autoCreated && (
-                                                                    <p className="text-xs text-blue-600 mt-1 px-2">✨ Auto-created from daily entry on {project.sourceDate}</p>
-                                                                )}
-                                                                {project.sourceNote && (
-                                                                    <p className="text-xs text-gray-600 mt-2 px-2 bg-white rounded p-2">
-                                                                        <strong>Original note:</strong> {project.sourceNote}
-                                                                    </p>
-                                                                )}
-                                                            </div>
-                                                            <div className="flex items-center gap-2">
-                                                                {isComplete ? (
-                                                                    <span className="text-xs bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1">
-                                                                        <CheckCircle size={14} />
-                                                                        Complete
-                                                                    </span>
-                                                                ) : (
-                                                                    <span className="text-xs bg-yellow-600 text-white px-2 py-1 rounded flex items-center gap-1">
-                                                                        <AlertCircle size={14} />
-                                                                        Needs Info
-                                                                    </span>
-                                                                )}
-                                                                <label className="flex items-center gap-2 text-sm">
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        checked={project.isHero}
-                                                                        onChange={(e) => updateProject(project.id, 'isHero', e.target.checked)}
-                                                                        className="w-4 h-4"
-                                                                    />
-                                                                    <span className={project.isHero ? 'text-orange-600 font-medium' : 'text-gray-600'}>
-                                                                        ⭐ Hero
-                                                                    </span>
-                                                                </label>
-                                                                <button
-                                                                    onClick={() => deleteItem(project.id, 'project')}
-                                                                    className="text-red-500 hover:text-red-700"
-                                                                >
-                                                                    <Trash2 size={16} />
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="space-y-3">
-                                                            <div>
-                                                                <label className={`block text-sm font-medium mb-1 ${!project.challenge ? 'text-red-600' : 'text-gray-700'}`}>
-                                                                    The Challenge {!project.challenge && '⚠️'}
-                                                                </label>
-                                                                <textarea
-                                                                    value={project.challenge}
-                                                                    onChange={(e) => updateProject(project.id, 'challenge', e.target.value)}
-                                                                    placeholder="What problem were you solving?"
-                                                                    rows={2}
-                                                                    className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 bg-white"
-                                                                />
-                                                            </div>
-
-                                                            <div>
-                                                                <label className={`block text-sm font-medium mb-1 ${!project.approach ? 'text-red-600' : 'text-gray-700'}`}>
-                                                                    Your Approach {!project.approach && '⚠️'}
-                                                                </label>
-                                                                <textarea
-                                                                    value={project.approach}
-                                                                    onChange={(e) => updateProject(project.id, 'approach', e.target.value)}
-                                                                    placeholder="How did you lead the solution?"
-                                                                    rows={2}
-                                                                    className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 bg-white"
-                                                                />
-                                                            </div>
-
-                                                            <div>
-                                                                <label className={`block text-sm font-medium mb-1 ${!project.outcome ? 'text-red-600' : 'text-gray-700'}`}>
-                                                                    The Outcome {!project.outcome && '⚠️'}
-                                                                </label>
-                                                                <textarea
-                                                                    value={project.outcome}
-                                                                    onChange={(e) => updateProject(project.id, 'outcome', e.target.value)}
-                                                                    placeholder="What was the result?"
-                                                                    rows={2}
-                                                                    className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 bg-white"
-                                                                />
-                                                            </div>
-
-                                                            <div className="grid grid-cols-2 gap-3">
-                                                                <div>
-                                                                    <label className={`block text-sm font-medium mb-1 ${!project.metrics ? 'text-red-600' : 'text-gray-700'}`}>
-                                                                        Metrics/Impact {!project.metrics && '⚠️'}
-                                                                    </label>
-                                                                    <input
-                                                                        type="text"
-                                                                        value={project.metrics}
-                                                                        onChange={(e) => updateProject(project.id, 'metrics', e.target.value)}
-                                                                        placeholder="e.g., 23% increase, $4.2M revenue"
-                                                                        className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 bg-white"
-                                                                    />
-                                                                </div>
-                                                                <div>
-                                                                    <label className={`block text-sm font-medium mb-1 ${!project.teamSize ? 'text-red-600' : 'text-gray-700'}`}>
-                                                                        Your Role/Team Size {!project.teamSize && '⚠️'}
-                                                                    </label>
-                                                                    <input
-                                                                        type="text"
-                                                                        value={project.teamSize}
-                                                                        onChange={(e) => updateProject(project.id, 'teamSize', e.target.value)}
-                                                                        placeholder="e.g., Led team of 8 designers"
-                                                                        className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 bg-white"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                );
-                                            })
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Testimonials Tab */}
-                        {activeTab === 'testimonials' && (
-                            <div className="space-y-6">
-                                <div className="bg-white rounded-lg shadow-lg p-6">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h2 className="text-xl font-bold text-gray-800">Testimonials & Praise</h2>
-                                        <button
-                                            onClick={addTestimonial}
-                                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
-                                        >
-                                            <Plus size={20} />
-                                            Add Testimonial
-                                        </button>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        {testimonials.length === 0 ? (
-                                            <p className="text-gray-500 text-center py-8">No testimonials yet. Add feedback from executives!</p>
-                                        ) : (
-                                            testimonials.map(testimonial => {
-                                                const isComplete = isTestimonialComplete(testimonial);
-                                                return (
-                                                    <div key={testimonial.id} className={`border-2 rounded-lg p-4 ${isComplete ? 'border-green-200 bg-green-50' : 'border-yellow-200 bg-yellow-50'}`}>
-                                                        <div className="flex justify-between items-start mb-2">
-                                                            <div className="flex-1">
-                                                                <div className="flex items-center gap-2 mb-1">
-                                                                    <input
-                                                                        type="text"
-                                                                        value={testimonial.source}
-                                                                        onChange={(e) => setTestimonials(testimonials.map(t => 
-                                                                            t.id === testimonial.id ? {...t, source: e.target.value} : t
-                                                                        ))}
-                                                                        className={`font-medium text-gray-800 bg-transparent border-b-2 border-transparent hover:border-blue-300 focus:border-blue-500 focus:outline-none px-2 flex-1 ${!testimonial.source ? 'border-red-300' : ''}`}
-                                                                        placeholder="Person's name & title ⚠️"
-                                                                    />
-                                                                    {isComplete ? (
-                                                                        <span className="text-xs bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1">
-                                                                            <CheckCircle size={14} />
-                                                                            Complete
-                                                                        </span>
-                                                                    ) : (
-                                                                        <span className="text-xs bg-yellow-600 text-white px-2 py-1 rounded flex items-center gap-1">
-                                                                            <AlertCircle size={14} />
-                                                                            Needs Info
-                                                                        </span>
-                                                                    )}
-                                                                </div>
-                                                                <p className="text-xs text-gray-500 px-2">{testimonial.date}</p>
-                                                            </div>
-                                                            <button
-                                                                onClick={() => deleteItem(testimonial.id, 'testimonial')}
-                                                                className="text-red-500 hover:text-red-700"
-                                                            >
-                                                                <Trash2 size={16} />
-                                                            </button>
-                                                        </div>
-                                                        
-                                                        <textarea
-                                                            value={testimonial.content}
-                                                            onChange={(e) => setTestimonials(testimonials.map(t => 
-                                                                t.id === testimonial.id ? {...t, content: e.target.value} : t
-                                                            ))}
-                                                            placeholder={!testimonial.content ? "Paste the testimonial or feedback here... ⚠️" : "Paste the testimonial or feedback here..."}
-                                                            rows={3}
-                                                            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 mb-2 bg-white"
-                                                        />
-                                                        
-                                                        <input
-                                                            type="text"
-                                                            value={testimonial.context}
-                                                            onChange={(e) => setTestimonials(testimonials.map(t => 
-                                                                t.id === testimonial.id ? {...t, context: e.target.value} : t
-                                                            ))}
-                                                            placeholder={!testimonial.context ? "Context (e.g., 'After Product Launch Q3 2024') ⚠️" : "Context (e.g., 'After Product Launch Q3 2024')"}
-                                                            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 text-sm bg-white"
-                                                        />
-                                                    </div>
-                                                );
-                                            })
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Metrics Tab */}
-                        {activeTab === 'metrics' && (
-                            <div className="space-y-6">
-                                <div className="bg-white rounded-lg shadow-lg p-6">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h2 className="text-xl font-bold text-gray-800">Business Metrics & Impact</h2>
-                                        <button
-                                            onClick={addMetric}
-                                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
-                                        >
-                                            <Plus size={20} />
-                                            Add Metric
-                                        </button>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        {metrics.length === 0 ? (
-                                            <p className="text-gray-500 text-center py-8">No metrics yet. Add measurable outcomes!</p>
-                                        ) : (
-                                            metrics.map(metric => {
-                                                const isComplete = isMetricComplete(metric);
-                                                return (
-                                                    <div key={metric.id} className={`border-2 rounded-lg p-4 ${isComplete ? 'border-green-200 bg-green-50' : 'border-yellow-200 bg-yellow-50'}`}>
-                                                        <div className="flex justify-between items-start mb-3">
-                                                            <input
-                                                                type="text"
-                                                                value={metric.description}
-                                                                onChange={(e) => setMetrics(metrics.map(m => 
-                                                                    m.id === metric.id ? {...m, description: e.target.value} : m
-                                                                ))}
-                                                                className="font-medium text-gray-800 bg-transparent border-b-2 border-transparent hover:border-blue-300 focus:border-blue-500 focus:outline-none px-2 flex-1"
-                                                                placeholder={!metric.description ? "Metric description ⚠️" : "Metric description"}
-                                                            />
-                                                            <div className="flex items-center gap-2">
-                                                                {isComplete ? (
-                                                                    <span className="text-xs bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1">
-                                                                        <CheckCircle size={14} />
-                                                                        Complete
-                                                                    </span>
-                                                                ) : (
-                                                                    <span className="text-xs bg-yellow-600 text-white px-2 py-1 rounded flex items-center gap-1">
-                                                                        <AlertCircle size={14} />
-                                                                        Needs Info
-                                                                    </span>
-                                                                )}
-                                                                <button
-                                                                    onClick={() => deleteItem(metric.id, 'metric')}
-                                                                    className="text-red-500 hover:text-red-700"
-                                                                >
-                                                                    <Trash2 size={16} />
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div className="grid grid-cols-2 gap-3">
-                                                            <div>
-                                                                <label className={`block text-xs mb-1 ${!metric.value ? 'text-red-600' : 'text-gray-600'}`}>
-                                                                    Value/Number {!metric.value && '⚠️'}
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    value={metric.value}
-                                                                    onChange={(e) => setMetrics(metrics.map(m => 
-                                                                        m.id === metric.id ? {...m, value: e.target.value} : m
-                                                                    ))}
-                                                                    placeholder="e.g., 23%, $4.2M, 10,000 users"
-                                                                    className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 text-sm bg-white"
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <label className={`block text-xs mb-1 ${!metric.project ? 'text-red-600' : 'text-gray-600'}`}>
-                                                                    Related Project {!metric.project && '⚠️'}
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    value={metric.project}
-                                                                    onChange={(e) => setMetrics(metrics.map(m => 
-                                                                        m.id === metric.id ? {...m, project: e.target.value} : m
-                                                                    ))}
-                                                                    placeholder="Project name"
-                                                                    className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 text-sm bg-white"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div className="mt-2">
-                                                            <label className={`block text-xs mb-1 ${!metric.impact ? 'text-red-600' : 'text-gray-600'}`}>
-                                                                Business Impact {!metric.impact && '⚠️'}
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                value={metric.impact}
-                                                                onChange={(e) => setMetrics(metrics.map(m => 
-                                                                    m.id === metric.id ? {...m, impact: e.target.value} : m
-                                                                ))}
-                                                                placeholder="How did this affect the business?"
-                                                                className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 text-sm bg-white"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                );
-                                            })
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        };
-
-        ReactDOM.render(<PortfolioTracker />, document.getElementById('root'));
-    </script>
-</body>
-</html>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 bg-blue-500 rounded"></div>
+                                            <span>Entered (Not Complete)</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 bg-yellow-500 rounded"></div>
+                                            <span>Today</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-4 h-4 bg-gray-200 rounded"></div>
+                                            <span>Upcoming</span
